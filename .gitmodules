@@ -1,0 +1,3 @@
+[submodule "LoveCards"]
+	path = LoveCards
+	url = https://github.com/LoveCards/LoveCardsV2.git
