@@ -1,0 +1,32 @@
+services:
+  LoveCardsPHP:
+    image: php:8.1-apache
+    container_name: LoveCardsPHP
+    volumes:
+      - ./LoveCards:/var/www/html
+    ports:
+      - '${LOVECARDS_PORT}:80'
+    networks:
+      - LoveCardsNetwork
+    depends_on:
+      - LoveCardsMySQL
+
+  LoveCardsMySQL:
+    image: mysql:8.0
+    container_name: LoveCardsMySQL
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: LoveCards
+      MYSQL_USER: LoveCards
+      MYSQL_PASSWORD: LoveCards
+    ports:
+      - '${MYSQL_PORT}:3306'
+    volumes:
+      - ./LoveCardsMySQL:/var/lib/mysql
+    networks:
+      - LoveCardsNetwork
+
+networks:
+  LoveCardsNetwork:
+    driver: bridge
+    name: LoveCardsNetwork
