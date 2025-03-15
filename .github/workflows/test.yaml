@@ -1,5 +1,5 @@
 name: LoveCardsV2Docker Test
-run-name: ${{ github.actor }} deployed LoveCardsV2Docker
+run-name: ${{ github.actor }} tested deployment of LoveCardsV2Docker
 on: [push]
 jobs:
   test_deploy:
