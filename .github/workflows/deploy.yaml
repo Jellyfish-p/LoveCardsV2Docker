@@ -1,0 +1,26 @@
+name: LoveCardsV2Docker Deploy
+run-name: ${{ github.actor }} deployed LoveCardsV2Docker
+on: [push]
+jobs:
+  test_deploy:
+    runs-on: ubuntu-latest
+    if: "contains(github.event.head_commit.message, '[deploy]')"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Github Package Registry
+        uses: docker/login-action@v3
+        with: 
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/lovecardsv2Docker:${{ github.sha }}
