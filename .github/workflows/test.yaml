@@ -4,6 +4,6 @@ on: [push]
 jobs:
   test_deploy:
     runs-on: ubuntu-latest
-    if: "contains(gitea.event.head_commit.message, '[test]')"
+    if: "contains(github.event.head_commit.message, '[test]')"
     steps:
       - run: docker build -t lovecardsv2 .
