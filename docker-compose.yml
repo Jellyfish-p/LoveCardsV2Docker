@@ -3,11 +3,10 @@ services:
     image: ghcr.io/jellyfish-p/lovecardsv2docker
     container_name: LoveCardsPHP
     volumes:
-      - ./storage:/var/www/html/public/storage
+      - ./LoveCardsV2/storage:/var/www/html/public/storage
+      # - ./LoveCardsV2/theme:/var/www/html/public/theme
     ports:
       - '${LOVECARDS_PORT}:80'
-    networks:
-      - LoveCardsNetwork
     depends_on:
       - LoveCardsMySQL
 
@@ -15,18 +14,12 @@ services:
     image: mysql:8.0
     container_name: LoveCardsMySQL
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: LoveCards
-      MYSQL_USER: LoveCards
-      MYSQL_PASSWORD: LoveCards
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - '${MYSQL_PORT}:3306'
     volumes:
       - ./LoveCardsMySQL:/var/lib/mysql
-    networks:
-      - LoveCardsNetwork
 
-networks:
-  LoveCardsNetwork:
-    driver: bridge
-    name: LoveCardsNetwork
