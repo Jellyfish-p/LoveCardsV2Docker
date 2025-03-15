@@ -1,0 +1,9 @@
+name: LoveCardsV2Docker Deploy
+run-name: ${{ github.actor }} deployed LoveCardsV2Docker
+on: [push]
+jobs:
+  test_deploy:
+    runs-on: ubuntu-latest
+    if: "contains(gitea.event.head_commit.message, '[test]')"
+    steps:
+      - run: docker build -t lovecardsv2 .
