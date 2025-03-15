@@ -1,9 +1,9 @@
 services:
   LoveCardsPHP:
-    image: php:8.1-apache
+    image: ghcr.io/jellyfish-p/lovecardsv2docker
     container_name: LoveCardsPHP
     volumes:
-      - ./LoveCards:/var/www/html
+      - ./storage:/var/www/html/public/storage
     ports:
       - '${LOVECARDS_PORT}:80'
     networks:
